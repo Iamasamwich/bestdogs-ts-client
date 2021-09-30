@@ -1,21 +1,21 @@
 .FavouriteDogs {
-  height: 50%;
+  min-height: 50vh;
+  height: auto;
   width: 100%;
   display: flex;
-  background-color: cornflowerblue;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  overflow-y: scroll;
 }
 
 .favourite-dog {
   height: 240px;
-  width: 18%;
+  width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: purple;
+  margin: 0 10px 15px 10px;
+  border: 1px solid gainsboro;
 }
 
 .favourite-dog-image {

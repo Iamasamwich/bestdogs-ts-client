@@ -1,7 +1,6 @@
 .ShowDogs {
-  height: 50%;
+  min-height: 50vh;
   width: 100%;
-  background-color:lightseagreen;
 }
 
 .showdogs-container {
@@ -27,6 +26,7 @@
   width: 200px;
   height: 300px;
   margin-bottom: 20px;
+  object-fit: contain;
 }
 
 button {
@@ -35,6 +35,11 @@ button {
   font-size: 30px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .unclickable {
   color: grey;
+  pointer-events: none;
 }

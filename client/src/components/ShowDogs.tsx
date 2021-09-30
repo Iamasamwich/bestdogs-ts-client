@@ -42,11 +42,8 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
 
   const getNextDog = () => {
     if (loading !== 'loading') {
-      console.log('loading dog');
       getDog();
     } else {
-      console.log('loading, bailing');
-      
       return;
     };
   };

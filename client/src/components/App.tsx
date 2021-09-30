@@ -8,19 +8,17 @@ import '../styles/centered.css';
 const App = () => {
 
   const [favourites, setFavourites] = useState <Array<string>> ([]);
+  const [alertShown, setAlertShown] = useState <Boolean> (false);
 
   const changeFavourite = (url:string) => {
     const favouritesIndex: number = favourites.indexOf(url);
-    console.log(favouritesIndex);
-    
     if (favouritesIndex === -1) {
-      //if it's not in the list add it
-      console.log('adding');
-      
       setFavourites([...favourites, url]);
     } else {
-      //if it's in the list remove it
-      console.log('removing');
+      if (!alertShown) {
+        alert('You just removed a dog. You MONSTER!');
+        setAlertShown(true);
+      };
       setFavourites(favourites.filter(dog => dog !==url));
     };
   };
