@@ -9,8 +9,6 @@ interface PropsType {
 
 const FavouriteDogs = ({favourites, changeFavourite} :PropsType) => {
 
-  console.log('x', favourites, 'xx');
-  
   const showDogs = () => {
     return favourites.map(dog => {
       return (
