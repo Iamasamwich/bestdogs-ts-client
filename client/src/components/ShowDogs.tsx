@@ -2,13 +2,22 @@ import React, { useEffect, useState } from 'react';
 
 import './ShowDogs.css';
 
-const ShowDogs = () => {
+interface PropsType {
+  changeFavourite (url: string):void,
+  favourites: Array<string>;
+}
+
+
+const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
 
   const [imgSrc, setImgSrc] = useState <string | undefined> ();
   const [dogsList, setDogsList] = useState <Array<string | undefined>> ([]);
+  const [loading, setLoading] = useState <string | undefined> ();
 
   useEffect(() => {
-    getDog();
+    if (dogsList.length === 0) {
+      getDog();
+    };
   }, []);
 
   useEffect(() => {
@@ -16,6 +25,7 @@ const ShowDogs = () => {
   }, [dogsList]);
 
   const getDog = async () => {
+    setLoading('loading');
     await fetch('https://dog.ceo/api/breeds/image/random')
     .then(res => res.json())
     .then(res => {
@@ -30,12 +40,23 @@ const ShowDogs = () => {
     });
   };
 
-  const showPreviousDog = () => {
-    if (dogsList.length <= 1) {
-      return;
+  const getNextDog = () => {
+    if (loading !== 'loading') {
+      console.log('loading dog');
+      getDog();
     } else {
+      console.log('loading, bailing');
+      
+      return;
+    };
+  };
+
+  const showPreviousDog = () => {
+    if (dogsList.length > 1) {
       const newDogsList = dogsList.slice(0, dogsList.length -1);
       setDogsList(newDogsList);
+    } else {
+      return;
     };
   };
 
@@ -46,21 +67,31 @@ const ShowDogs = () => {
       case undefined:
         return <div className='dog-image'>Loading...</div>
       default:
-        return <img className='dog-image' src={imgSrc} alt="Dog" />;
+        return <img onLoad={() => setLoading(undefined)}className='dog-image' src={imgSrc} alt="Dog" />;
     };
   };
 
   return (
     <div className='ShowDogs centered'>
       <div className='showdogs-container'>
-        <button onClick={() => showPreviousDog()}>Previous</button>
+        <button 
+          className={dogsList.length > 1 ? '' : 'unclickable'}
+          onClick={showPreviousDog}>
+          Previous
+        </button>
         <div className='center'>
           {renderImage()}
-          <button className='favourite-button'>
+          <button 
+            onClick={() => imgSrc ? changeFavourite(imgSrc) : ''}
+            className='favourite-button'>
             Favourite
           </button>
         </div>
-        <button onClick={() => getDog()}>Next</button>
+        <button 
+          className={loading ? 'unclickable' : '' }
+          onClick={getNextDog}>
+            {loading ? 'loading...' : 'Next'}
+        </button>
       </div>
     </div>
   );

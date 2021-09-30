@@ -7,6 +7,8 @@
 .showdogs-container {
   flex-direction: row;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .favourite-button {
@@ -17,12 +19,22 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  margin: 0 20px 0 20px;
 }
 
 .dog-image {
   width: 200px;
   height: 300px;
-  max-width: auto;
-  max-height: auto;
+  margin-bottom: 20px;
+}
 
+button {
+  height: 40px;
+  min-width: 200px;
+  font-size: 30px;
+}
+
+.unclickable {
+  color: grey;
 }
