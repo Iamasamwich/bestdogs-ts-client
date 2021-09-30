@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import './ShowDogs.css';
 
-interface DogsList {
-  url: string,
-  favourite: Boolean
-}
-
 const ShowDogs = () => {
 
   const [imgSrc, setImgSrc] = useState <string | undefined> ();
@@ -17,27 +12,16 @@ const ShowDogs = () => {
   }, []);
 
   useEffect(() => {
-    if (imgSrc === undefined) {
-      return;
-    } else {
-      setDogsList([...dogsList, imgSrc].slice(-10));
-    };
-  }, [imgSrc]);
-
-  useEffect(() => {
-
-  }, [dogsList])
+    setImgSrc(dogsList[dogsList.length -1])
+  }, [dogsList]);
 
   const getDog = async () => {
-    setImgSrc(undefined);
     await fetch('https://dog.ceo/api/breeds/image/random')
     .then(res => res.json())
     .then(res => {
       if (res.status === 'success') {
-        setImgSrc(res.message);
-      } else {
-        setImgSrc('error');
-      }
+        setDogsList([...dogsList, res.message].slice(-10));
+      };
     })
     .catch(err => {
       console.log('error');
@@ -46,28 +30,30 @@ const ShowDogs = () => {
     });
   };
 
+  const showPreviousDog = () => {
+    if (dogsList.length <= 1) {
+      return;
+    } else {
+      const newDogsList = dogsList.slice(0, dogsList.length -1);
+      setDogsList(newDogsList);
+    };
+  };
+
   const renderImage = () => {
     switch (imgSrc) {
       case 'error':
         return;
-      case null:
+      case undefined:
         return <div className='dog-image'>Loading...</div>
       default:
-        console.log(imgSrc);
-        
-        console.log('showing image');
-        
         return <img className='dog-image' src={imgSrc} alt="Dog" />;
     };
   };
 
-  console.log(dogsList);
-  
-
   return (
     <div className='ShowDogs centered'>
       <div className='showdogs-container'>
-        <button>Previous</button>
+        <button onClick={() => showPreviousDog()}>Previous</button>
         <div className='center'>
           {renderImage()}
           <button className='favourite-button'>
