@@ -31,7 +31,8 @@ const App = () => {
         favourites={favourites} 
         changeFavourite={(url : string) => changeFavourite(url)}/>
       <FavouriteDogs 
-        favourites={favourites}/>
+        favourites={favourites}
+        changeFavourite={(url:string) => changeFavourite(url)}/>
     </div>
   );
 };

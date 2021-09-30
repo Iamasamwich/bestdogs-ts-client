@@ -3,19 +3,35 @@ import React from 'react';
 import './FavouriteDogs.css';
 
 interface PropsType {
+  changeFavourite (url:string):void,
   favourites: Array<string>;
 };
 
-const FavouriteDogs = ({favourites} :PropsType) => {
+const FavouriteDogs = ({favourites, changeFavourite} :PropsType) => {
 
-  console.log(favourites);
+  console.log('x', favourites, 'xx');
   
+  const showDogs = () => {
+    return favourites.map(dog => {
+      return (
+        <div className="favourite-dog" key={dog}>
+          <img 
+            src={dog} 
+            className='favourite-dog-image'
+            alt="dog" />
+          <button
+            onClick={() => changeFavourite(dog)}
+          >
+            Unfavourite
+          </button>
+        </div>
+      )
+    });
+  };
 
   return (
     <div className='FavouriteDogs'>
-      {favourites.map(dog => {
-        return <p>{dog}</p>
-      })}
+      {showDogs()}
     </div>
   );
 };
