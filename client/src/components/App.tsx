@@ -21,10 +21,7 @@ const App = () => {
     } else {
       //if it's in the list remove it
       console.log('removing');
-      const newFavourites = favourites.filter(dog => {
-        return dog !== url;
-      });
-      setFavourites(newFavourites);
+      setFavourites(favourites.filter(dog => dog !==url));
     };
   };
 

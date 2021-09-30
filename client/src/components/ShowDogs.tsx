@@ -67,9 +67,19 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
       case undefined:
         return <div className='dog-image'>Loading...</div>
       default:
-        return <img onLoad={() => setLoading(undefined)}className='dog-image' src={imgSrc} alt="Dog" />;
+        return <img onLoad={() => setLoading(undefined)} className='dog-image' src={imgSrc} alt="Dog" />;
     };
   };
+
+  const favouriteButton = () => {
+    return (
+      <button 
+        onClick={() => (imgSrc && !loading) ? changeFavourite(imgSrc) : false }
+        className={`favourite-button ${loading ? 'unclickable' : ''}`}>
+        {`${(imgSrc && favourites.indexOf(imgSrc)) === -1 ? 'F' : 'Unf'}avourite`}
+      </button>
+    );
+  }
 
   return (
     <div className='ShowDogs centered'>
@@ -81,11 +91,8 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
         </button>
         <div className='center'>
           {renderImage()}
-          <button 
-            onClick={() => imgSrc ? changeFavourite(imgSrc) : ''}
-            className='favourite-button'>
-            Favourite
-          </button>
+          {favouriteButton()}
+         
         </div>
         <button 
           className={loading ? 'unclickable' : '' }
