@@ -34,3 +34,21 @@
 * Typescript
 * Testing (any framework)
 * Documentation
+
+## Installation
+
+* Change to the directory where you want the app to sit
+* Clone the directory
+
+\> `git clone https://github.com/Iamasamwich/bestdogs.git`
+
+* install the client packages
+
+\> `cd client`
+
+\> `npm install`
+
+* start the client server
+
+\> `npm start`
+

@@ -3,3 +3,22 @@
   width: 100%;
   background-color:lightseagreen;
 }
+
+.showdogs-container {
+  flex-direction: row;
+  display: flex;
+}
+
+.favourite-button {
+  width: 100%;
+}
+
+
+
+.dog-image {
+  width: 200px;
+  height: 300px;
+  max-width: auto;
+  max-height: auto;
+
+}
