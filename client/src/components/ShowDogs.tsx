@@ -2,43 +2,55 @@ import React, { useEffect, useState } from 'react';
 
 import './ShowDogs.css';
 
+interface DogsList {
+  url: string,
+  favourite: Boolean
+}
+
 const ShowDogs = () => {
 
-  const [imgSrc, setImgSrc] = useState('loading');
-  const [dogsList, setDogsList] = useState([]);
+  const [imgSrc, setImgSrc] = useState <string | undefined> ();
+  const [dogsList, setDogsList] = useState <Array<string | undefined>> ([]);
 
   useEffect(() => {
     getDog();
   }, []);
 
+  useEffect(() => {
+    if (imgSrc === undefined) {
+      return;
+    } else {
+      setDogsList([...dogsList, imgSrc].slice(-10));
+    };
+  }, [imgSrc]);
+
+  useEffect(() => {
+
+  }, [dogsList])
+
   const getDog = async () => {
-    setImgSrc('loading');
+    setImgSrc(undefined);
     await fetch('https://dog.ceo/api/breeds/image/random')
-    .then(res => {
-      console.log('fetch happened');
-      
-      return res;
-    })
     .then(res => res.json())
     .then(res => {
       if (res.status === 'success') {
         setImgSrc(res.message);
-        // const newDogsList = dogsList.push(res.message);
-        // setDogsList(newDogsList);
       } else {
         setImgSrc('error');
       }
     })
     .catch(err => {
+      console.log('error');
+      console.log(err);
       setImgSrc('error');
     });
-  }
+  };
 
   const renderImage = () => {
     switch (imgSrc) {
       case 'error':
         return;
-      case 'loading':
+      case null:
         return <div className='dog-image'>Loading...</div>
       default:
         console.log(imgSrc);
@@ -48,6 +60,9 @@ const ShowDogs = () => {
         return <img className='dog-image' src={imgSrc} alt="Dog" />;
     };
   };
+
+  console.log(dogsList);
+  
 
   return (
     <div className='ShowDogs centered'>
