@@ -8,23 +8,18 @@ import '../styles/centered.css';
 const App = () => {
 
   const [favourites, setFavourites] = useState <Array<string>> ([]);
-  const [alertShown, setAlertShown] = useState <Boolean> (false);
 
   useEffect(() => {
-    const getDogs = async () => {
+    (async () => {
       await fetch('http://localhost:8080/getdogs')
       .then(res => res.json())
+      .then(res => {
+        setFavourites(res.list);
+      })
       .catch(err => {
         console.log(err);
       });
-    };
-
-    getDogs()
-    .then(dogs => {
-      if (dogs.length > 0) {
-        setFavourites(dogs);
-      }
-    })
+    })();
   }, []);
 
   const addDog = async (url: string) => {
@@ -70,11 +65,7 @@ const App = () => {
       addDog(url);
       setFavourites([...favourites, url]);
     } else {
-      if (!alertShown) {
-        removeDog(url);
-        alert('You just removed a dog. You MONSTER!');
-        setAlertShown(true);
-      };
+      removeDog(url);
       setFavourites(favourites.filter(dog => dog !==url));
     };
   };
