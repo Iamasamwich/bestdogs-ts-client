@@ -37,14 +37,21 @@
 
 ## Installation
 
-* Change to the directory where you want the app to sit
-* Clone the directory
+* If you haven't already, create the bestdogs directory
+
+\> `mkdir bestdogs`
+
+* Change to that directory
+
+\> `cd bestdogs`
+
+* Clone the client
 
 \> `git clone https://github.com/Iamasamwich/bestdogs.git`
 
 * install the client packages
 
-\> `cd client`
+\> `cd bestdogs`
 
 \> `npm install`
 
