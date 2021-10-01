@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ShowDogs from './ShowDogs';
 import FavouriteDogs from './FavouriteDogs';
 
@@ -9,6 +9,36 @@ const App = () => {
 
   const [favourites, setFavourites] = useState <Array<string>> ([]);
   const [alertShown, setAlertShown] = useState <Boolean> (false);
+
+  useEffect(() => {
+    const favouriteList = async () => {
+
+      await fetch('http://localhost:8080/getdogs', 
+      {
+        method: 'GET'
+      })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+      })
+    };
+
+    favouriteList();
+
+    // const data = fetch('http://localhost:8080/getdogs', {
+    //     method: 'GET'
+    //   })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+      
+  }, []);
+
+
+
+
+
 
   const changeFavourite = (url:string) => {
     const favouritesIndex: number = favourites.indexOf(url);
