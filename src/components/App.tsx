@@ -10,12 +10,68 @@ const App = () => {
   const [favourites, setFavourites] = useState <Array<string>> ([]);
   const [alertShown, setAlertShown] = useState <Boolean> (false);
 
+  useEffect(() => {
+    const getDogs = async () => {
+      await fetch('http://localhost:8080/getdogs')
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err);
+      });
+    };
+
+    getDogs()
+    .then(dogs => {
+      if (dogs.length > 0) {
+        setFavourites(dogs);
+      }
+    })
+  }, []);
+
+  const addDog = async (url: string) => {
+    const resp = await fetch('http://localhost:8080/adddog', 
+      {
+        method : 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+          dog: url
+        })
+      }
+    )
+    .then(res => res.json())
+    .catch(err => {
+      console.log(err);
+    });
+    console.log('xx', resp)
+  };
+
+  const removeDog = async (url: string) => {
+    const resp = await fetch('http://localhost:8080/removedog', 
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        dog: url
+      })
+    })
+    .then(res => res.json())
+    .catch(err => {
+      console.log(err);
+    });
+    console.log('yy', resp);
+  };
+
   const changeFavourite = (url:string) => {
     const favouritesIndex: number = favourites.indexOf(url);
     if (favouritesIndex === -1) {
+      addDog(url);
       setFavourites([...favourites, url]);
     } else {
       if (!alertShown) {
+        removeDog(url);
         alert('You just removed a dog. You MONSTER!');
         setAlertShown(true);
       };
