@@ -45,17 +45,35 @@
 
 \> `cd bestdogs`
 
-* Clone the client
+* Clone the server
 
-\> `git clone https://github.com/Iamasamwich/bestdogs.git`
+bestdogs\> `git clone https://github.com/Iamasamwich/bestdogs-js.git`
+
+* install the server packages
+
+bestdogs\> `cd bestdogs-js`
+
+bestdogs/bestdogs-js\> `npm install`
+
+* start the server
+
+bestdogs/bestdogs-js\> `npm start`
+
+* You can see the built version by going to http://localhost:8080
+
+* to see the react development version, open a new terminal window, change to the parent directory and clone the client
+
+bestdogs\> `git clone https://github.com/Iamasamwich/bestdogs.git`
 
 * install the client packages
 
-\> `cd bestdogs`
+bestdogs\> `cd bestdogs`
 
-\> `npm install`
+bestdogs/bestdogs\> `npm install`
 
 * start the client server
 
 \> `npm start`
+
+* go to http://localhost:3000 to see it in action
 
