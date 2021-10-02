@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {getNewDog} from '../api';
 
 import './ShowDogs.css';
 
@@ -16,7 +17,7 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
 
   useEffect(() => {
     if (dogsList.length === 0) {
-      getDog();
+      fetchDog();
     };
   }, []);
 
@@ -24,25 +25,20 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
     setImgSrc(dogsList[dogsList.length -1])
   }, [dogsList]);
 
-  const getDog = async () => {
+  const fetchDog = () => {
     setLoading('loading');
-    await fetch('https://dog.ceo/api/breeds/image/random')
-    .then(res => res.json())
-    .then(res => {
-      if (res.status === 'success') {
-        setDogsList([...dogsList, res.message].slice(-10));
-      };
+    getNewDog()
+    .then((res : string) => {
+      setDogsList([...dogsList, res].slice(-10))
     })
-    .catch(err => {
-      console.log('error');
-      console.log(err);
-      setImgSrc('error');
+    .catch(() => {
+      console.log('error fetching dog');
     });
   };
 
   const getNextDog = () => {
     if (loading !== 'loading') {
-      getDog();
+      fetchDog();
     } else {
       return;
     };

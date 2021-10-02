@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {getDogs, addDog, removeDog} from '../api';
 import ShowDogs from './ShowDogs';
 import FavouriteDogs from './FavouriteDogs';
 
@@ -10,54 +11,12 @@ const App = () => {
   const [favourites, setFavourites] = useState <Array<string>> ([]);
 
   useEffect(() => {
-    (async () => {
-      await fetch('http://localhost:8080/getdogs')
-      .then(res => res.json())
-      .then(res => {
-        setFavourites(res.list);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    })();
+    getDogs()
+    .then(setFavourites)
+    .catch(err => {
+      console.log(err);
+    });
   }, []);
-
-  const addDog = async (url: string) => {
-    const resp = await fetch('http://localhost:8080/adddog', 
-      {
-        method : 'POST',
-        headers: {
-          'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({
-          dog: url
-        })
-      }
-    )
-    .then(res => res.json())
-    .catch(err => {
-      console.log(err);
-    });
-    console.log('xx', resp)
-  };
-
-  const removeDog = async (url: string) => {
-    const resp = await fetch('http://localhost:8080/removedog', 
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        dog: url
-      })
-    })
-    .then(res => res.json())
-    .catch(err => {
-      console.log(err);
-    });
-    console.log('yy', resp);
-  };
 
   const changeFavourite = (url:string) => {
     const favouritesIndex: number = favourites.indexOf(url);
