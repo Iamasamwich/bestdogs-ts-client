@@ -16,7 +16,7 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
 
   useEffect(() => {
     if (dogsList.length === 0) {
-      fetchDog();
+      getNextDog();
     };
   }, []);
 
@@ -24,20 +24,17 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
     setImgSrc(dogsList[dogsList.length -1])
   }, [dogsList]);
 
-  const fetchDog = () => {
-    setLoading('loading');
-    getNewDog()
-    .then((res : string) => {
-      setDogsList([...dogsList, res].slice(-10))
-    })
-    .catch(() => {
-      console.log('error fetching dog');
-    });
-  };
-
   const getNextDog = () => {
     if (loading !== 'loading') {
-      fetchDog();
+      setLoading('loading');
+      getNewDog()
+      .then((res: string) => {
+        setLoading('');
+        setDogsList([...dogsList, res].slice(-10))
+      })
+      .catch(() => {
+        console.log('error fetching dog');
+      });
     } else {
       return;
     };
@@ -52,14 +49,19 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
     };
   };
 
-  const renderImage = () => {
-    switch (imgSrc) {
-      case 'error':
-        return;
-      case undefined:
-        return <div className='dog-image'>Loading...</div>
+  const showImage = () => {
+    switch (loading) {
+      case 'loading':
+        return (
+          <div className='dog-image'>
+            <div className="loading-spinner">
+            </div>
+            <p>Loading</p>
+          </div>
+        )
       default:
         return <img onLoad={() => setLoading(undefined)} className='dog-image' src={imgSrc} alt="Dog" />;
+
     };
   };
 
@@ -68,10 +70,16 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
       <button 
         onClick={() => (imgSrc && !loading) ? changeFavourite(imgSrc) : false }
         className={`favourite-button ${loading ? 'unclickable' : ''}`}>
-        {`${(imgSrc && favourites.indexOf(imgSrc)) === -1 ? 'F' : 'Unf'}avourite`}
+          {loading 
+            ? 'Loading...'
+            : `${(imgSrc && favourites.indexOf(imgSrc)) === -1 ? 'F' : 'Unf'}avourite`
+          }
       </button>
     );
-  }
+  };
+
+  console.log(loading);
+  
 
   return (
     <div className='ShowDogs centered'>
@@ -82,9 +90,8 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
           Previous
         </button>
         <div className='center'>
-          {renderImage()}
+          {showImage()}
           {favouriteButton()}
-         
         </div>
         <button 
           className={loading ? 'unclickable' : '' }

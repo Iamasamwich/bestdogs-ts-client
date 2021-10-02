@@ -23,9 +23,14 @@
 }
 
 .dog-image {
+  position: relative;
   width: 200px;
   height: 300px;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   object-fit: contain;
 }
 
@@ -42,4 +47,23 @@ button:hover {
 .unclickable {
   color: grey;
   pointer-events: none;
+}
+
+.loading-spinner {
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
+  animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {transform: rotate(0)}
+  100% {transform: rotate(89deg)}
+}
+
+.dog-image > p {
+  position: absolute;
+  bottom: 0;
+  font-size: 20px;
+  font-weight: bold;
 }
