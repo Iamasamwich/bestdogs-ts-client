@@ -63,7 +63,7 @@ button:hover {
 
 .dog-image > p {
   position: absolute;
-  bottom: 0;
+  bottom: 40px;
   font-size: 20px;
   font-weight: bold;
 }

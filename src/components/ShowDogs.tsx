@@ -28,9 +28,9 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
     if (loading !== 'loading') {
       setLoading('loading');
       getNewDog()
-      .then((res: string) => {
+      .then(res => {
         setLoading('');
-        setDogsList([...dogsList, res].slice(-10))
+        setImgSrc(res);
       })
       .catch(() => {
         console.log('error fetching dog');
@@ -60,7 +60,7 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
           </div>
         )
       default:
-        return <img onLoad={() => setLoading(undefined)} className='dog-image' src={imgSrc} alt="Dog" />;
+        return <img className='dog-image' src={imgSrc} alt="Dog" />;
 
     };
   };
@@ -77,9 +77,6 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
       </button>
     );
   };
-
-  console.log(loading);
-  
 
   return (
     <div className='ShowDogs centered'>
