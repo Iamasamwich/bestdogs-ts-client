@@ -30,7 +30,7 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
       getNewDog()
       .then(res => {
         setLoading('');
-        setImgSrc(res);
+        setDogsList([...dogsList, res].splice(-10));
       })
       .catch(() => {
         console.log('error fetching dog');
