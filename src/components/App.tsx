@@ -4,11 +4,11 @@ import ShowDogs from './ShowDogs';
 import FavouriteDogs from './FavouriteDogs';
 
 import './App.css';
-import '../styles/centered.css';
+import './centered.css';
 
 const App = () => {
 
-  const [favourites, setFavourites] = useState <Array<string>> ([]);
+  const [favourites, setFavourites] = useState <string[]> ([]);
 
   useEffect(() => {
     getDogs()
@@ -21,11 +21,15 @@ const App = () => {
   const changeFavourite = (url:string) => {
     const favouritesIndex: number = favourites.indexOf(url);
     if (favouritesIndex === -1) {
-      addDog(url);
-      setFavourites([...favourites, url]);
+      addDog(url)
+      .then(res => {
+        setFavourites(res.list);
+      });
     } else {
-      removeDog(url);
-      setFavourites(favourites.filter(dog => dog !==url));
+      removeDog(url)
+      .then(res => {
+        setFavourites(res.list);
+      });
     };
   };
 
@@ -33,10 +37,10 @@ const App = () => {
     <div className='App centered'>
       <ShowDogs 
         favourites={favourites} 
-        changeFavourite={(url : string) => changeFavourite(url)}/>
+        changeFavourite={(url) => changeFavourite(url)}/>
       <FavouriteDogs 
         favourites={favourites}
-        changeFavourite={(url:string) => changeFavourite(url)}/>
+        changeFavourite={(url) => changeFavourite(url)}/>
     </div>
   );
 };

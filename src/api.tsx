@@ -15,18 +15,14 @@ export const getNewDog = async () => {
       throw res
     };
   })
-  .catch(err => {
-    console.log(err);
-    throw err;
-  });
+  .catch(err => console.log(err));
 };
 
 export const getDogs = async () => {
   return await fetch(host + '/getdogs', {...options, method: 'GET'})
   .then(res => res.json())
   .then(res => res.list)
-  .catch(err => {throw (err)}
-  );
+  .catch(err => console.log(err));
 };
 
 export const addDog = async (url :string) => {

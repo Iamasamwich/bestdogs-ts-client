@@ -3,7 +3,7 @@ import React from 'react';
 import './FavouriteDogs.css';
 
 interface PropsType {
-  changeFavourite (url:string):void,
+  changeFavourite (url:string):void;
   favourites: Array<string>;
 };
 
