@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {getNewDog} from '../api';
 
-import './ShowDogs.css';
-
 interface PropsType {
   changeFavourite (url: string):void,
   favourites: Array<string>;
@@ -56,7 +54,7 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
           <div className='dog-image'>
             <div className="loading-spinner">
             </div>
-            <p>Loading</p>
+            <p className="loading-text">Loading</p>
           </div>
         )
       default:
@@ -69,7 +67,7 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
     return (
       <button 
         onClick={() => (imgSrc && !loading) ? changeFavourite(imgSrc) : false }
-        className={`favourite-button ${loading ? 'unclickable' : ''}`}>
+        className={`${loading ? 'unclickable' : ''}`}>
           {loading 
             ? 'Loading...'
             : `${(imgSrc && favourites.indexOf(imgSrc)) === -1 ? 'F' : 'Unf'}avourite`
@@ -79,7 +77,7 @@ const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
   };
 
   return (
-    <div className='ShowDogs centered'>
+    <div className='show-dogs'>
       <div className='showdogs-container'>
         <button 
           className={dogsList.length > 1 ? '' : 'unclickable'}

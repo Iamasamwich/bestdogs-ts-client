@@ -3,8 +3,7 @@ import {getDogs, addDog, removeDog} from '../api';
 import ShowDogs from './ShowDogs';
 import FavouriteDogs from './FavouriteDogs';
 
-import './App.css';
-import './centered.css';
+import '../styles/bestdogs.css';
 
 const App = () => {
 
@@ -34,7 +33,7 @@ const App = () => {
   };
 
   return (
-    <div className='App centered'>
+    <div className='app'>
       <ShowDogs 
         favourites={favourites} 
         changeFavourite={(url) => changeFavourite(url)}/>

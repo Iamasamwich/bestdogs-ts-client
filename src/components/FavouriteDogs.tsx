@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './FavouriteDogs.css';
-
 interface PropsType {
   changeFavourite (url:string):void;
   favourites: Array<string>;
@@ -17,9 +15,7 @@ const FavouriteDogs = ({favourites, changeFavourite} :PropsType) => {
             src={dog} 
             className='favourite-dog-image'
             alt="dog" />
-          <button
-            onClick={() => changeFavourite(dog)}
-          >
+          <button onClick={() => changeFavourite(dog)}>
             Unfavourite
           </button>
         </div>
@@ -28,8 +24,14 @@ const FavouriteDogs = ({favourites, changeFavourite} :PropsType) => {
   };
 
   return (
-    <div className='FavouriteDogs'>
-      {showDogs()}
+    <div className='favourite-dogs'>
+      {favourites.length > 0 ? 
+      <h1>Your Favourite Dogs</h1>
+      : null
+      }
+      <div className='favourite-dogs-list'>
+        {showDogs()}
+      </div>
     </div>
   );
 };
