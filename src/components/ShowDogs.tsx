@@ -8,10 +8,6 @@ interface PropsType {
 
 const ShowDogs = ({changeFavourite, favourites} : PropsType) => {
 
-
-  console.log(favourites);
-  
-
   const [imgSrc, setImgSrc] = useState <string | undefined> ();
   const [dogsList, setDogsList] = useState <Array<string | undefined>> ([]);
   const [loading, setLoading] = useState <string | undefined> ();
