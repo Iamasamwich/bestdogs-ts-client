@@ -1,3 +1,8 @@
+interface Dog {
+  id: string
+};
+
+
 const host = 'http://localhost:8080'
 const options = {
   headers: {
@@ -21,7 +26,7 @@ export const getNewDog = async () => {
 export const getDogs = async () => {
   return await fetch(host + '/getdogs', {...options, method: 'GET'})
   .then(res => res.json())
-  .then(res => res.list)
+  .then(res => res.list.map((dog : Dog) => dog.id))
   .catch(err => console.log(err));
 };
 
@@ -29,6 +34,7 @@ export const addDog = async (url :string) => {
   const body = JSON.stringify({dog: url});
   return await fetch(host + '/addDog', {...options, method: 'POST', body})
   .then(res => res.json())
+  .then(res => res.list.map((dog : Dog) => dog.id))
   .catch(err => {
     console.log('error adding dog');
   });
@@ -38,6 +44,7 @@ export const removeDog = async (url :string) => {
   const body = JSON.stringify({dog: url});
   return await fetch(host + '/removedog', {...options, method: 'PUT', body})
   .then(res => res.json())
+  .then(res => res.list.map((dog : Dog) => dog.id))
   .catch(err => {
     console.log('error removing dog');
   });

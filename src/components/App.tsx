@@ -5,6 +5,10 @@ import FavouriteDogs from './FavouriteDogs';
 
 import '../styles/bestdogs.css';
 
+interface Dog {
+  id: string
+};
+
 const App = () => {
 
   const [favourites, setFavourites] = useState <string[]> ([]);
@@ -17,17 +21,17 @@ const App = () => {
     });
   }, []);
 
-  const changeFavourite = (url:string) => {
+  const changeFavourite = (url : string) => {
     const favouritesIndex: number = favourites.indexOf(url);
     if (favouritesIndex === -1) {
       addDog(url)
       .then(res => {
-        setFavourites(res.list);
+        setFavourites(res);
       });
     } else {
       removeDog(url)
       .then(res => {
-        setFavourites(res.list);
+        setFavourites(res);
       });
     };
   };
