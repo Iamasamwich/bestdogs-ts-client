@@ -73,5 +73,7 @@ bestdogs/bestdogs-ts-client\> `npm install`
 
 \> `npm start`
 
-* go to http://localhost:3000 to see it in action (make sure you have the server running first...)
+* go to http://localhost:3000 to see it in action 
+
+* If the server isn't running the app will still work, but won't fetch or update your favourite dogs.
 
