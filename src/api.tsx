@@ -3,10 +3,10 @@ interface Dog {
 };
 
 
-const host = 'http://localhost:8080'
+const host = 'http://localhost:8080/dogs'
 const options = {
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 }
 
@@ -20,33 +20,38 @@ export const getNewDog = async () => {
       throw res
     };
   })
-  .catch(err => console.log(err));
+  .catch(err => {console.log(err)});
 };
 
 export const getDogs = async () => {
-  return await fetch(host + '/getdogs', {...options, method: 'GET'})
+  return await fetch(host, {...options, method: 'GET'})
   .then(res => res.json())
   .then(res => res.list.map((dog : Dog) => dog.id))
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+    return [];
+  });
 };
 
 export const addDog = async (url :string) => {
   const body = JSON.stringify({dog: url});
-  return await fetch(host + '/addDog', {...options, method: 'POST', body})
+  return await fetch(host, {...options, method: 'POST', body})
   .then(res => res.json())
   .then(res => res.list.map((dog : Dog) => dog.id))
   .catch(err => {
     console.log('error adding dog');
+    return [];
   });
 };
 
 export const removeDog = async (url :string) => {
   const body = JSON.stringify({dog: url});
-  return await fetch(host + '/removedog', {...options, method: 'PUT', body})
+  return await fetch(host, {...options, method: 'PUT', body})
   .then(res => res.json())
   .then(res => res.list.map((dog : Dog) => dog.id))
   .catch(err => {
     console.log('error removing dog');
+    return [];
   });
 };
 
