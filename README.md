@@ -17,9 +17,8 @@
 
 ### Backend
 
-* NodeJS backend (any framework)
+* Node/Express/[Node-Json-DB](https://www.npmjs.com/package/node-json-db)
 * Rest API to perform CRUD operations
-* JSONdb for storing data
 * Favourite dogs should be stored in the JSONdb
 * Should be able to remove favourite dogs
 * The favourite dogs should persist when the page reloads
@@ -27,7 +26,6 @@
 ## Links:
 
 * [Dog API](https://github.com/public-apis/public-apis#animals)
-* [JSONdb](https://www.npmjs.com/package/node-json-db)
 
 ## Bonus points:
 
@@ -47,33 +45,33 @@
 
 * Clone the server
 
-bestdogs\> `git clone https://github.com/Iamasamwich/bestdogs-js.git`
+bestdogs\> `git clone https://github.com/Iamasamwich/bestdogs-ts.git`
 
 * install the server packages
 
-bestdogs\> `cd bestdogs-js`
+bestdogs\> `cd bestdogs-ts`
 
 bestdogs/bestdogs-js\> `npm install`
 
 * start the server
 
-bestdogs/bestdogs-js\> `npm start`
+bestdogs/bestdogs-js\> `npm run dev`
 
 * You can see the built version by going to http://localhost:8080
 
 * to see the react development version, open a new terminal window, change to the parent directory and clone the client
 
-bestdogs\> `git clone https://github.com/Iamasamwich/bestdogs.git`
+bestdogs\> `git clone https://github.com/Iamasamwich/bestdogs-ts-client.git`
 
 * install the client packages
 
-bestdogs\> `cd bestdogs`
+bestdogs\> `cd bestdogs-ts-client`
 
-bestdogs/bestdogs\> `npm install`
+bestdogs/bestdogs-ts-client\> `npm install`
 
 * start the client server
 
 \> `npm start`
 
-* go to http://localhost:3000 to see it in action
+* go to http://localhost:3000 to see it in action (make sure you have the server running first...)
 
